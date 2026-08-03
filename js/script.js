@@ -34,3 +34,4 @@ registerForm.addEventListener("submit",
         console.log("Email:",email)
         console.log("Password:",password);
     });
+    
