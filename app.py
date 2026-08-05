@@ -2,6 +2,8 @@ from flask import Flask,render_template,jsonify,request
 
 app=Flask(__name__)
 
+users_db={}
+
 @app.route('/')
 def home():
     return render_template("index.html")
@@ -36,6 +38,26 @@ def register():
         gender=request.form["gender"]
         course=request.form["course"]
     return render_template("register.html")
-    
+
+@app.route('/api/regiter',methods=["POST"])
+def api_register():
+    data=request.get_json()
+    email=data.get("email")
+    if email in users_db:
+        return jsonify({"status":"error","message":"User already exists with this email!"}),400
+
+    users_db[email]=data
+    return jsonify({"status": "success","message": "Registration successful!"})
+@app.route('/api/login',methods=["POST"])
+def api_login():
+    data=request.get_json()
+    email=data.get("email")
+    password=data.get("password")
+
+    user = users_db.get(email)
+    if user and user.get("password")==password:
+        return jsonify({"status": "success", "message": "Login successful! Welcome back."})
+    else:
+        return jsonify({"status": "error","message": "Inavalid email or password!"}),401
 if __name__=='__main__':
     app.run (debug=True)

@@ -11,3 +11,8 @@
 * React- web framework for fronten development in javascript
 * flask,fastapi,django- web framework for backend development in python
 * orm- oject ralational mapping, it is a technique hat allows you to query and manipulate data form a database.
+
+#status codes
+200 OK
+201 Created
+204 No Content
